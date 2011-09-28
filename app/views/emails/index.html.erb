@@ -1,0 +1,20 @@
+<%if !@emails.blank? %>
+<h3>List of uploaded files</h3>
+<table>
+	<tr>
+		<th><b>FileName</b></th>
+		
+	</tr>
+<% @emails.each do |i| %>
+    <tr>
+	    <td><%=h i.file_file_name %></td>
+	    <td><%= link_to 'show', i %></td>
+	    <td><%= link_to 'delete',i, :confirm => 'Are you sure', :method => :delete %></td>
+	</tr><br/>
+<%end%>
+</table>
+<% else %>
+<% flash[:notice] = 'No files uploaded'%>
+<%end%>
+</br>
+<%= link_to 'Upload File', new_email_path %>

@@ -1,0 +1,14 @@
+
+<table border=1>
+	<tr>
+		<th><b>Email id</b></th>
+		<th><b>Status</b></th>
+	</tr>	
+<% @emailstatuses.each do |i| %>
+   <tr>
+	    <td><%=h i.emailid %></td>
+	    <td><%=h i.status %></td>
+	</tr>
+<% end %>
+</table>
+<br/>

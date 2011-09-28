@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emailcleanup</title>
+  <%= stylesheet_link_tag "main" %>
+  <%= javascript_include_tag :all %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+	<%= notice %>
+	<%= alert %>
+	<div align="right">
+	 <% if current_user %>
+	    Signed in as <a href = "<%= edit_user_registration_path %>" > <%= current_user.email %></a>. Not you?
+	    <%= link_to "Sign out", destroy_user_session_path %>
+	  <% else %>
+	    <%= link_to "login", new_user_session_path %>
+	  <% end %>
+	</div>
+	<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<h2>File upload</h2>
+<%= form_for @email, :html => { :multipart => true } do |f| %>
+<%= f.error_messages %>
+<%= f.file_field :file %><br/><br/>
+<%= f.submit 'upload' %>
+<% end %>
+<br/>
+<% if current_user %>
+<%= link_to 'My Files', emails_path %>
+<% end %>
+<!-- <% if current_user %>
+<% @emails = Email.find(:all)%>
+<% if !@emails.blank? %>
+<% @emails.each do |email| %>
+	<%= link_to 'My files', :id => email, :action => "index" %>
+	<%break%>
+<% end %>
+<%end%>	
+<% end %> -->

@@ -1,0 +1,2 @@
+module EmailstatusHelper
+end

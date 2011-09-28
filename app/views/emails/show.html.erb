@@ -1,0 +1,47 @@
+<% if current_user.id == @email.user_id %>
+<h5 style= "text-align:right"><%= link_to 'Home', new_email_path %></h5>
+<a href= "<%= @email.file.url %>" target = "_blank">Link to the uploaded file</a>
+<br/>
+<br/>
+<% if !@emailstatuses.blank? %>
+<%= link_to 'AllEmails', :controller => "emails", :action => "show" %>&nbsp
+<%= link_to 'Valid Emails', :controller => "emails", :action => "valid" %>&nbsp
+<%= link_to 'InValid Emails', :controller => "emails", :action => "invalid" %>
+&nbsp&nbsp
+<%= link_to 'Download AllEmails to csv', "/csvfiles/#{current_user.id}_#{$value}_all_#{$filename}.csv" %>
+<br/><br/>
+<table border=1>
+	<tr>
+		<th><b>Email id</b></th>
+		<th><b>Status</b></th>
+	</tr>	
+<% @emailstatuses.each do |i| %>
+   <tr>
+	    <td><%=h i.emailid %></td>
+	    <td><%=h i.status %></td>
+	</tr>
+<% end %>
+</table>
+<br/>
+<%= will_paginate @emailstatuses %>
+<% else %>
+<%= render :partial => "emailstatuses/emailstatus" %>
+<% end %> 
+
+
+
+<% if !@email.emailstatuses.blank? %>
+<% $filename = @email.file_file_name %>
+<% path = "/users/ashwinipatlola/railsapps/emailcleanup/public/csvfiles/#{current_user.id}_#{$value}_all_#{$filename}.csv" %>
+<% FasterCSV.open(path, "w") do |csv|%>
+    <% csv << ["Emailid", "Status"] %>
+<% @email.emailstatuses.each do |i| %>
+    <% csv << ["#{i.emailid}","#{i.status}"]%>
+   <% end %>
+<% end %>
+<% end %>
+
+<% else %>
+<%= render :text => "Unauthorized access." %>&nbsp
+<%= link_to 'click here', :controller => "emails", :action => "index" %>
+<% end %>
